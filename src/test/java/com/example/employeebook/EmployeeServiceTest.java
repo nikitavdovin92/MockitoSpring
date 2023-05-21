@@ -1,6 +1,7 @@
 package com.example.employeebook;
 
 
+import com.example.employeebook.exception.EmployeeAlreadyAddedException;
 import com.example.employeebook.exception.EmployeeStorageIsFullException;
 import com.example.employeebook.exception.IncorrectFirstnameException;
 import com.example.employeebook.exception.IncorrectLastnameException;
@@ -66,15 +67,15 @@ public class EmployeeServiceTest {
 
     @ParameterizedTest
     @MethodSource ("addWithIncorrectSurnameTestParams")
-    public void addWithIncorrectSurnameTest(String incorrectSurame) {
+    public void addWithIncorrectSurnameTest(String incorrectSurname) {
         Assertions.assertThatExceptionOfType(IncorrectLastnameException.class)
-                .isThrownBy(()->employeeService.add("Ivan",incorrectSurame, 50_000, 1));
+                .isThrownBy(()->employeeService.add("Ivan",incorrectSurname, 50_000, 1));
     }
 
     @Test
     public void addWhenAlreadyExistsTest() {
-        Assertions.assertThatExceptionOfType(IncorrectLastnameException.class)
-                .isThrownBy(()->employeeService.add("Иван","Иванов", 50000, 1));
+        Assertions.assertThatExceptionOfType(EmployeeAlreadyAddedException.class)
+                .isThrownBy(()->employeeService.add("Иван","Иванов", 50_000, 1));
     }
 
     @Test
