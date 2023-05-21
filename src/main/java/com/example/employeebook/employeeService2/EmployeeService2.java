@@ -22,11 +22,11 @@ public class EmployeeService2 {
     }
 
     EmployeeService2() {
-        staff[0] = new Employee("Василий", "Васильев", 50000, 5);
-        staff[1] = new Employee("Виктор", "Генкин", 51000, 5);
-        staff[2] = new Employee("Валерий", "Буров", 52000, 5);
-        staff[3] = new Employee("Геннадий", "Букин", 53000, 5);
-        staff[4] = new Employee("Георгий", "Гренкин", 54000, 5);
+        staff[0] = new Employee("Василий", "Васильев", 50000, 1);
+        staff[1] = new Employee("Виктор", "Генкин", 51000, 2);
+        staff[2] = new Employee("Валерий", "Буров", 53000, 2);
+        staff[3] = new Employee("Геннадий", "Букин", 54000, 3);
+        staff[4] = new Employee("Георгий", "Гренкин", 55000, 4);
     }
 
     public Employee getMaxPaidByDept (int department) {
