@@ -69,4 +69,13 @@ public class Employee {
                 ", department=" + department +
                 '}';
     }
+
+    public Employee() {
+        super();
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

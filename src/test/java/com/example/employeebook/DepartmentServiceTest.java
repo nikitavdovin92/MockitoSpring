@@ -77,37 +77,37 @@ public class DepartmentServiceTest {
     }
 
     @ParameterizedTest
-    @MethodSource("employeeWithMaxSalaryTestParams")
-    public void employeeWithMaxSalaryTest(int departmentId, Employee expected) {
-        Assertions.assertThat(departmentService.employeeWithMaxSalary(departmentId))
+    @MethodSource("maxSalaryTestParams")
+    public void maxSalaryFromDepartmentTest(int departmentId, double expected) {
+        Assertions.assertThat(departmentService.maxSalaryFromDepartment(departmentId))
                 .isEqualTo(expected);
 
     }
 
     @Test
-    public void employeeWithMaxSalaryWhenNotFoundTest() {
+    public void maxSalaryWhenNotFoundTest() {
         Assertions.assertThatExceptionOfType(EmployeeNotFoundException.class)
-                .isThrownBy(()->departmentService.employeeWithMaxSalary(4));
+                .isThrownBy(()->departmentService.maxSalaryFromDepartment(4));
     }
 
     @ParameterizedTest
-    @MethodSource("employeeWithMinSalaryTestParams")
-    public void employeeWithMinSalaryTest(int departmentId, Employee expected) {
-        Assertions.assertThat(departmentService.employeeWithMinSalary(departmentId))
+    @MethodSource("minSalaryTestParams")
+    public void minSalaryFromDepartmentTest(int departmentId, double expected) {
+        Assertions.assertThat(departmentService.minSalaryFromDepartment(departmentId))
                 .isEqualTo(expected);
 
     }
 
     @Test
-    public void employeeWithMinSalaryWhenNotFoundTest() {
+    public void minSalaryWhenNotFoundTest() {
         Assertions.assertThatExceptionOfType(EmployeeNotFoundException.class)
-                .isThrownBy(()->departmentService.employeeWithMinSalary(4));
+                .isThrownBy(()->departmentService.minSalaryFromDepartment(4));
     }
 
     @ParameterizedTest
     @MethodSource("employeesFromDepartmentTestParams")
     public void employeesFromDepartmentTest(int departmentId, List<Employee> expected) {
-        Assertions.assertThat(departmentService.employeesFromDepartment(departmentId))
+        Assertions.assertThat(departmentService.employeesGroupFromDepartment(departmentId))
                 .containsExactlyInAnyOrderElementsOf(expected);
 
     }
