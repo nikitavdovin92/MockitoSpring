@@ -21,8 +21,8 @@ public class EmployeeService {
 
 
     public Employee add(String name, String surName, double salary, int department) {
-        Employee employee = new Employee(ValidatorService.validateLastName(name),
-                ValidatorService.validateFirstName(surName), salary, department);
+        Employee employee = new Employee(ValidatorService.validateName(name),
+                ValidatorService.validateSurname(surName), salary, department);
         if(employees.contains(employee)) {
             throw new EmployeeAlreadyAddedException();
         }
