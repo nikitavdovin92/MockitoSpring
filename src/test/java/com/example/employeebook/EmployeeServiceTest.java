@@ -1,10 +1,7 @@
 package com.example.employeebook;
 
 
-import com.example.employeebook.exception.EmployeeAlreadyAddedException;
-import com.example.employeebook.exception.EmployeeStorageIsFullException;
-import com.example.employeebook.exception.IncorrectFirstnameException;
-import com.example.employeebook.exception.IncorrectLastnameException;
+import com.example.employeebook.exception.*;
 import com.example.employeebook.model.Employee;
 import com.example.employeebook.service.EmployeeService;
 import com.example.employeebook.validatorService.ValidatorService;
@@ -46,6 +43,9 @@ public class EmployeeServiceTest {
         employeeService.getAll().forEach(employee -> employeeService.remove
                 (employee.getName(), employee.getSurName()));
     }
+
+
+    //Тесты для add
     @Test
     public void addTest() {
         int beforeCount = employeeService.getAll().size();
@@ -95,5 +95,57 @@ public class EmployeeServiceTest {
 
         Assertions.assertThatExceptionOfType(EmployeeStorageIsFullException.class)
                 .isThrownBy(()->employeeService.add("Вася","Пупкин", 50000, 1));
+    }
+
+
+    //Тесты для remove
+    @Test
+    public void removeTest() {
+        int beforeCount = employeeService.getAll().size();
+        Employee expected = new Employee("Иван", "Иванов", 50000, 1);
+
+        Assertions.assertThat(employeeService.remove("Иван", "Иванов"))
+                .isEqualTo(expected)
+                .isNotIn(employeeService.getAll());
+        Assertions.assertThat(employeeService.getAll()).hasSize(beforeCount-1);
+        Assertions.assertThatExceptionOfType(EmployeeNotFoundException.class)
+                .isThrownBy(()->employeeService.find("Иван","Иванов"));
+    }
+
+    @Test
+    public void removeWhenNotFoundTest() {
+        Assertions.assertThatExceptionOfType(EmployeeNotFoundException.class)
+                .isThrownBy(()->employeeService.find("Вася","Пупкин"));
+    }
+
+    //Тесты для find
+    @Test
+    public void findTest() {
+        int beforeCount = employeeService.getAll().size();
+        Employee expected = new Employee("Иван", "Иванов", 50000, 1);
+
+        Assertions.assertThat(employeeService.find("Иван", "Иванов"))
+                .isEqualTo(expected)
+                .isIn(employeeService.getAll());
+        Assertions.assertThat(employeeService.getAll()).hasSize(beforeCount);
+    }
+
+    @Test
+    public void findWhenNotFoundTest() {
+        Assertions.assertThatExceptionOfType(EmployeeNotFoundException.class)
+                .isThrownBy(()->employeeService.find("Вася","Пупкин"));
+    }
+
+    //Тесты для getAll
+    @Test
+    public void getAllTest() {
+        Assertions.assertThat(employeeService.getAll())
+                .hasSize(3)
+                .containsExactlyInAnyOrder(
+                        new Employee("Иван","Иванов", 50000, 1),
+                     new Employee   ("Пётр","Петров",60000, 2),
+                       new Employee ("Сергей","Сергеев",70000, 3)
+                );
+
     }
 }
