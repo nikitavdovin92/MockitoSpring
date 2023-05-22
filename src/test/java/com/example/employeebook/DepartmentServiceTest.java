@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 
 @ExtendWith(MockitoExtension.class)
 public class DepartmentServiceTest {
+
     @Mock
     private EmployeeService employeeService;
 

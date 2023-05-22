@@ -14,6 +14,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 public class EmployeeServiceTest {
+
     private final EmployeeService employeeService = new EmployeeService(new ValidatorService());
 
     public static Stream<Arguments>addWithIncorrectNameTestParams() {
