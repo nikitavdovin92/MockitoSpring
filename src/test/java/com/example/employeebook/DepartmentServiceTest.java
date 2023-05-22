@@ -1,7 +1,7 @@
 package com.example.employeebook;
 
 import com.example.employeebook.employeeService2.DepartmentService;
-import com.example.employeebook.exception.EmployeeNotFoundException;
+import com.example.employeebook.exception.DepartmentNotFoundException;
 import com.example.employeebook.model.Employee;
 import com.example.employeebook.service.EmployeeService;
 import org.assertj.core.api.Assertions;
@@ -31,19 +31,19 @@ public class DepartmentServiceTest {
     private DepartmentService departmentService;
 
 
-    public static Stream<Arguments> employeeWithMaxSalaryTestParams() {
+    public static Stream<Arguments> maxSalaryFromDepartmentTestParams() {
         return Stream.of(
-                Arguments.of(1,new Employee("Пётр", "Петров", 15000, 1 )),
-                Arguments.of(2,new Employee("Анна", "Петрова", 17000, 2 )),
-                Arguments.of(3,new Employee("Вася", "Пупкин", 20000, 3 ))
+                Arguments.of(1, 15000 ),
+                Arguments.of(2, 17000 ),
+                Arguments.of(3, 20000 )
         );
     }
 
-    public static Stream<Arguments> employeeWithMinSalaryTestParams() {
+    public static Stream<Arguments> minSalaryFromDepartmentTestParams() {
         return Stream.of(
-                Arguments.of(1,new Employee("Иван", "Иванов", 10000, 1 )),
-                Arguments.of(2,new Employee("Мария", "Иванова", 15000, 2 )),
-                Arguments.of(3,new Employee("Вася", "Пупкин", 20000, 3 ))
+                Arguments.of(1, 10000 ),
+                Arguments.of(2, 15000 ),
+                Arguments.of(3, 20000 )
         );
     }
 
@@ -77,7 +77,7 @@ public class DepartmentServiceTest {
     }
 
     @ParameterizedTest
-    @MethodSource("maxSalaryTestParams")
+    @MethodSource("maxSalaryFromDepartmentTestParams")
     public void maxSalaryFromDepartmentTest(int departmentId, double expected) {
         Assertions.assertThat(departmentService.maxSalaryFromDepartment(departmentId))
                 .isEqualTo(expected);
@@ -86,12 +86,12 @@ public class DepartmentServiceTest {
 
     @Test
     public void maxSalaryWhenNotFoundTest() {
-        Assertions.assertThatExceptionOfType(EmployeeNotFoundException.class)
+        Assertions.assertThatExceptionOfType(DepartmentNotFoundException.class)
                 .isThrownBy(()->departmentService.maxSalaryFromDepartment(4));
     }
 
     @ParameterizedTest
-    @MethodSource("minSalaryTestParams")
+    @MethodSource("minSalaryFromDepartmentTestParams")
     public void minSalaryFromDepartmentTest(int departmentId, double expected) {
         Assertions.assertThat(departmentService.minSalaryFromDepartment(departmentId))
                 .isEqualTo(expected);
@@ -100,8 +100,8 @@ public class DepartmentServiceTest {
 
     @Test
     public void minSalaryWhenNotFoundTest() {
-        Assertions.assertThatExceptionOfType(EmployeeNotFoundException.class)
-                .isThrownBy(()->departmentService.minSalaryFromDepartment(4));
+        Assertions.assertThatExceptionOfType(DepartmentNotFoundException.class)
+                .isThrownBy(()->departmentService.minSalaryFromDepartment(5));
     }
 
     @ParameterizedTest
@@ -120,7 +120,7 @@ public class DepartmentServiceTest {
                 2, List.of(new Employee("Мария", "Иванова", 15000, 2),
                         new Employee("Анна", "Петрова", 17000, 2)),
                 3, Collections.singletonList((new Employee("Вася", "Пупкин", 20000, 3))
-        );
+        ));
         Assertions.assertThat(departmentService.employeesGroupByDepartment())
                 .containsExactlyInAnyOrderEntriesOf(expected);
 

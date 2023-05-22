@@ -21,7 +21,7 @@ public class DepartmentService {
 
     public double maxSalaryFromDepartment(int departmentId) {
         return employeeService.getAll().stream()
-                .filter(employee -> employee.getDepartment() = departmentId)
+                .filter(employee -> employee.getDepartment() == departmentId)
                 .mapToDouble(Employee::getSalary)
                 .max()
                 .orElseThrow(DepartmentNotFoundException::new);
@@ -30,7 +30,7 @@ public class DepartmentService {
 
     public double minSalaryFromDepartment(int departmentId) {
         return employeeService.getAll().stream()
-                .filter(employee -> employee.getDepartment() = departmentId)
+                .filter(employee -> employee.getDepartment() == departmentId)
                 .mapToDouble(Employee::getSalary)
                 .min()
                 .orElseThrow(DepartmentNotFoundException::new);
@@ -38,14 +38,14 @@ public class DepartmentService {
 
     public double sumSalaryFromDepartment(int departmentId) {
         return employeeService.getAll().stream()
-                .filter(employee -> employee.getDepartment() = departmentId)
+                .filter(employee -> employee.getDepartment() == departmentId)
                 .mapToDouble(Employee::getSalary)
                 .sum();
     }
 
     public List<Employee> employeesGroupFromDepartment(int departmentId) {
         return employeeService.getAll().stream()
-                .filter(employee -> employee.getDepartment() = departmentId)
+                .filter(employee -> employee.getDepartment() == departmentId)
                 .collect(Collectors.toList());
     }
 
