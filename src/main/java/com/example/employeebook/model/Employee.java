@@ -2,27 +2,35 @@ package com.example.employeebook.model;
 import java.util.Objects;
 
 public class Employee {
-    private String  firstName;
-    private String lastName;
+    private String  Name;
+    private String surName;
 
     private double salary;
 
     private int department;
 
-    public Employee(String firstName, String lastName, double salary, int department) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Employee(String name, String surName, double salary, int department) {
+        Name = name;
+        this.surName = surName;
         this.salary = salary;
         this.department = department;
     }
 
-    public String getFirstName() { return firstName; }
-    public String getLastName() {return lastName; }
+    public String getName() {
+        return Name;
+    }
 
-    public String fullName() { return firstName + " " + lastName; }
+    public void setName(String name) {
+        Name = name;
+    }
 
-    //Getters and setters
+    public String getSurName() {
+        return surName;
+    }
 
+    public void setSurName(String surName) {
+        this.surName = surName;
+    }
 
     public double getSalary() {
         return salary;
@@ -44,19 +52,30 @@ public class Employee {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Employee employee)) return false;
-        return Double.compare(employee.getSalary(), getSalary()) == 0 && getDepartment() == employee.getDepartment() && Objects.equals(getFirstName(), employee.getFirstName()) && Objects.equals(getLastName(), employee.getLastName());
+        return Double.compare(employee.getSalary(), getSalary()) == 0 && getDepartment() == employee.getDepartment() && Objects.equals(getName(), employee.getName()) && Objects.equals(getSurName(), employee.getSurName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFirstName(), getLastName(), getSalary(), getDepartment());
+        return Objects.hash(getName(), getSurName(), getSalary(), getDepartment());
     }
 
     @Override
     public String toString() {
         return "Employee{" +
-                "salary=" + salary +
+                "Name='" + Name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", salary=" + salary +
                 ", department=" + department +
                 '}';
+    }
+
+    public Employee() {
+        super();
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

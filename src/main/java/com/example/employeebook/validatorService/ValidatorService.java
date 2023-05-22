@@ -1,4 +1,5 @@
 package com.example.employeebook.validatorService;
+
 import com.example.employeebook.exception.IncorrectFirstnameException;
 import com.example.employeebook.exception.IncorrectLastnameException;
 import org.apache.commons.lang3.StringUtils;
@@ -6,21 +7,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ValidatorService {
-    public static String validateFirstName(String firstName) {
-        if (!StringUtils.isAlpha(firstName)) {
+    public static String validateName(String name) {
+        if (!StringUtils.isAlpha(name)) {
         throw new IncorrectFirstnameException();
         }
-        return StringUtils.capitalize(firstName.toLowerCase());
+        return StringUtils.capitalize(name.toLowerCase());
     }
 
-    public static String validateLastName(String lastName) {
-        String[] lastnames = lastName.split("-");
-        for (int i = 0; i < lastnames.length; i++) {
-            if (!StringUtils.isAlpha(lastnames[i])) {
+    public static String validateSurname(String surName) {
+        String[] surNames = surName.split("-");
+        for (int i = 0; i < surNames.length; i++) {
+            if (!StringUtils.isAlpha(surNames[i])) {
                 throw new IncorrectLastnameException();
             }
-            lastnames[i] = StringUtils.capitalize(lastnames[i].toLowerCase());
-        } return String.join("-", lastnames);
+            surNames[i] = StringUtils.capitalize(surNames[i].toLowerCase());
+        } return String.join("-", surNames);
 
     }
 }
